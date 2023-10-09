@@ -99,3 +99,21 @@ export const getBookByGenre = async (id) => {
         console.log(error);
     }
 }
+
+export const addBookToGenre = async (genreId, bookId) => {
+    try{
+        const genre = await Genre.findById(genreId);
+        if (genre) {
+            genre.books.push(bookId)
+            const newGenre = await genre.save();
+            console.log('Libro añadido');
+        return newGenre;
+        } else{
+            console.log('No se encontró el género')
+            console.log(genreId)
+            console.log(bookId)
+        }
+    }catch(error){
+        console.log(error);
+    }
+}

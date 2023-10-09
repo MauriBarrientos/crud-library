@@ -1,4 +1,4 @@
-import { bookGenreCount, getBookByGenre, getGenres, getGenreById, addGenre, updateGenre, deleteGenre } from "../models/Genre.js";
+import { addBookToGenre, bookGenreCount, getBookByGenre, getGenres, getGenreById, addGenre, updateGenre, deleteGenre } from "../models/Genre.js";
 
 export const getGenresCtrl = async (req, res) => {
     try{
@@ -63,6 +63,16 @@ export const getBookByGenreCtrl = async (req, res) => {
 export const bookGenreCountCtrl = async (req, res) => {
     try{
         const genre = await bookGenreCount(req.params.id);
+        res.status(200).json(genre);
+    }catch(error){
+        console.log(error)
+        res.status(500).json(error.message);
+    }
+}
+
+export const addBookToGenreCtrl = async (req, res) => {
+    try{
+        const genre = await addBookToGenre(req.body.genreId, req.body.bookId);
         res.status(200).json(genre);
     }catch(error){
         console.log(error)
